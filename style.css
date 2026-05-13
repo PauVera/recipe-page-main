@@ -44,21 +44,21 @@
   :root {
     /* Primitives */
     --clr-white: hsl(0, 0%, 100%);
-    --clr-stone-100: hsl(30, 54%, 90%);
     --clr-stone-150: hsl(30, 18%, 87%);
     --clr-stone-600: hsl(30, 10%, 34%);
     --clr-stone-900: hsl(24, 5%, 18%);
     --clr-brown-800: hsl(14, 45%, 36%);
     --clr-rose-800: hsl(332, 51%, 32%);
     --clr-rose-50: hsl(330, 100%, 98%);
+    --clr-black-50: rgba(0 0 0 /.2);
 
     --ff-headings: "Young serif", serif;
     --ff-body: "Outfit", sans-serif;
 
     --fs-400: 1rem; /* 16px */
     --fs-500: 1.125rem; /* 18px */
-    --fs-600: 1.75rem; /* 28px */
-    --fs-700: 2.25rem; /* 36px */
+    --fs-600: clamp(1.5rem, 1.4rem + 0.357vw, 1.75rem); /* hasta 28px */
+    --fs-700: clamp(1.75rem, 1.625rem + 0.714vw, 2.25rem); /* hasta 36px */
 
     --fw-400: 400;
     --fw-600: 600;
@@ -67,6 +67,8 @@
     --lh-100: 1;
     --lh-400: 1.5;
 
+    --sp-50: 0.25rem;
+    --sp-75: 0.5rem;
     --sp-100: 1rem; /* 16px */
     --sp-200: 1.25rem; /* 20px */
     --sp-300: 1.5rem; /* 24px */
@@ -74,6 +76,10 @@
     --sp-500: 2rem; /* 32px */
     --sp-600: 2.25rem; /* 36px */
     --sp-700: 2.5rem; /* 40px */
+    --sp-800: 3rem; /* 48px */
+
+    --rd-300: 10px;
+    --rd-500: 20px;
 
     /*Semantics*/
     --bg-body: var(--clr-stone-150);
@@ -86,6 +92,7 @@
     --text-clr-heading-card: var(--clr-rose-800);
     --text-color-list-marker: var(--clr-brown-800);
     --text-color-data-value: var(--clr-brown-800);
+    --text-color-important: var(--clr-rose-800);
 
     --text-strong: var(--fw-700);
     --text-semi-strong: var(--fw-600);
@@ -93,14 +100,14 @@
 
     --text-size-body: var(--fs-400);
     --text-size-heading-card: var(--fs-500);
-    --text-size-heading-section: clamp(1.5rem, 1.4rem + 0.357vw, var(--fs-600));
-    --text-size-heading-primary: clamp(
-      var(--fs-600),
-      1.625rem + 0.714vw,
-      var(--fs-700)
-    );
+    --text-size-heading-section: var(--fs-600);
+    --text-size-heading-primary: var(--fs-700);
 
-    --space-body: var(--sp-500);
+    --line-height-body: var(--lh-400);
+    --line-height-title: var(--lh-100);
+
+    --space-body-inline: var(--sp-500);
+    --space-body-block: var(--sp-800);
     --space-hero: var(--sp-700);
     --space-content-block: var(--sp-400);
     --space-card: var(--sp-300);
@@ -108,15 +115,32 @@
     --space-list-item: var(--sp-100);
     --space-section: var(--sp-600);
     --space-heading-section: var(--sp-400);
+    --space-under-title: var(--sp-75);
+
+    --table-inline-margin: var(--sp-500);
+    --table-block-space: var(--sp-75);
+
+    --marker-after-space: var(--sp-400);
+    --bullet-size: var(--fs-500);
+
+    --list-after-space: var(--sp-75);
+    --title-after-space: var(--sp-100);
+
+    --radius-article: var(--rd-500);
+    --radius-card: var(--rd-300);
+
+    --line-color: var(--clr-black-50);
+
+    --content-max-width: 80ch;
   }
 }
 
 @layer base {
   body {
     font-family: var(--ff-body);
-    font-size: var(--fs-400);
+    font-size: var(--text-size-body);
     color: var(--text-clr-base);
-    line-height: 1.5; /*crear token*/
+    line-height: var(--line-height-body);
   }
 
   p,
@@ -134,33 +158,33 @@
       background-color: var(--bg-body);
       display: grid;
       place-items: center;
-      padding-block: 3rem;
+      padding-block: var(--space-body-block);
     }
   }
 }
 
 @layer components {
   .recipe {
-    max-width: 70ch;
+    max-width: var(--content-max-width);
   }
 
-  @media (min-width: 500px) {
+  @media (min-width: 750px) {
     .recipe {
-      background-color: var(--clr-white);
-      border-radius: 20px;
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-article);
 
       & .img-container {
         margin: var(--space-content-block);
 
         & img {
-          border-radius: 20px;
+          border-radius: var(--radius-article);
         }
       }
     }
   }
 
-  .recipe section {
-    margin-inline: var(--space-body);
+  .section {
+    margin-inline: var(--space-body-inline);
     padding-block: var(--space-heading-section);
   }
 
@@ -168,37 +192,37 @@
     font-family: var(--ff-headings);
     font-size: var(--text-size-heading-primary);
     color: var(--text-clr-heading-primary);
-    line-height: var(--lh-100);
+    line-height: var(--line-height-title);
     padding-block-end: var(--space-content-block);
   }
 
   .card {
     background-color: var(--bg-card);
     padding: 0 var(--space-card);
-    border-radius: 10px; /*crear token */
+    border-radius: var(--radius-card);
   }
 
   .card__title {
     font-size: var(--text-size-heading-card);
     color: var(--text-clr-heading-card);
-    padding-block-end: 1rem; /*crear token*/
+    padding-block-end: var(--title-after-space);
   }
 
   .card__list {
-    line-height: var(--lh-400);
+    line-height: var(--line-height-body);
   }
 
-  .card__list--item {
+  .card__list-item {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-block-end: 0.5rem; /*crear token*/
+    padding-block-end: var(--list-after-space);
 
     &:before {
       content: "•";
-      font-size: 1.15rem;
-      color: var(--clr-rose-800);
-      padding-inline-end: var(--sp-400);
+      font-size: var(--bullet-size);
+      color: var(--text-color-important);
+      padding-inline-end: var(--marker-after-space);
     }
   }
 }
@@ -210,12 +234,12 @@
     display: flex;
     align-items: flex-start;
     counter-increment: numeracion;
-    padding-block: 0.25rem; /*crear token*/
+    padding-block: var(--sp-50);
 
     &:before {
       content: counter(numeracion) ".";
-      padding-inline-end: var(--sp-400);
-      color: var(--clr-rose-800);
+      padding-inline-end: var(--marker-after-space);
+      color: var(--text-color-important);
       font-weight: var(--text-strong);
       flex-shrink: 0;
     }
@@ -228,28 +252,28 @@ hr {
 }
 
 .section__paragraph {
-  padding-block: 0.5rem 1rem;
+  padding-block: var(--sp-75) var(--sp-100);
 }
 
 .section__table {
   width: 100%;
   border-collapse: collapse;
+}
 
-  & tr {
-    border-block-end: 1px solid rgba(0 0 0 /0.2);
-  }
+.section__table tr:not(:last-child) {
+  border-block-end: 1px solid var(--line-color);
+}
 
-  & th {
-    font-weight: var(--text-regular);
-    text-align: left;
-    padding-inline-start: 2rem;
-    padding-block: 0.5rem;
-  }
+.section__table th {
+  font-weight: var(--text-regular);
+  text-align: left;
+  padding-inline-start: var(--table-inline-margin);
+  padding-block: var(--table-block-space);
+}
 
-  & td {
-    font-weight: var(--text-semi-strong);
-    color: var(--clr-rose-800);
-  }
+.section__table td {
+  font-weight: var(--text-semi-strong);
+  color: var(--text-color-important);
 }
 
 @layer utilities {
@@ -257,7 +281,7 @@ hr {
     font-family: var(--ff-headings);
     font-size: var(--text-size-heading-section);
     color: var(--text-clr-heading-section);
-    padding-block: 0.5rem; /*crear token*/
+    padding-block: var(--space-under-title);
   }
 
   .bold-text {
