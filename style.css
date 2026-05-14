@@ -44,7 +44,7 @@
   :root {
     /* Primitives */
     --clr-white: hsl(0, 0%, 100%);
-    --clr-stone-150: hsl(30, 18%, 87%);
+    --clr-stone-150: hsl(30, 18%, 90%);
     --clr-stone-600: hsl(30, 10%, 34%);
     --clr-stone-900: hsl(24, 5%, 18%);
     --clr-brown-800: hsl(14, 45%, 36%);
