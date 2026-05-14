@@ -77,6 +77,7 @@
     --sp-600: 2.25rem; /* 36px */
     --sp-700: 2.5rem; /* 40px */
     --sp-800: 3rem; /* 48px */
+    --sp-900: 5rem; /* 48px */
 
     --rd-300: 10px;
     --rd-500: 20px;
@@ -107,7 +108,7 @@
     --line-height-title: var(--lh-100);
 
     --space-body-inline: var(--sp-500);
-    --space-body-block: var(--sp-800);
+    --space-body-block: var(--sp-900);
     --space-hero: var(--sp-700);
     --space-content-block: var(--sp-400);
     --space-card: var(--sp-300);
